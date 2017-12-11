@@ -1,6 +1,9 @@
 package crawler;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -11,12 +14,11 @@ import org.jsoup.select.Elements;
 public class PageCrawler {
 	private Document document;
 	private Page page;
-	private List<String> links;
-	private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.112 Safari/535.1";
+	private Set<String> links;
 
 	public PageCrawler(Page page) {
 		this.page = page;
-		links = new LinkedList<>();
+		links = new HashSet<>();
 	}
 	
 	public boolean crawl() {
@@ -31,20 +33,21 @@ public class PageCrawler {
 	
 	public boolean getPage() {
 		try {
-			Connection connection = Jsoup.connect(page.getUrl()).userAgent(USER_AGENT);
-			document = connection.get();
-			if (connection.response().statusCode() == 200) {
-			//	System.out.println("Visiting web page at: " + page.getUrl());
+			System.out.println(LocalDateTime.now());
+			document = page.getDocument();
+			System.out.println(LocalDateTime.now());
+			System.out.println();
+			if (document != null) {
+				System.out.println("Visiting web page at: " + page.getUrl());
 			//	System.out.println("Depth = " + page.getDepth());
 			}
-			if (!connection.response().contentType().contains("text/html")) {
-				System.out.println("Retrieved something other than html!");
+			else {
+				System.out.println("Error with page at: " + page.getUrl());
 				return false;
 			}
 			return true;
 		}
 		catch (Exception e) {
-			System.out.println("Error while getting page at: " + page.getUrl());
 			return false;
 		}
 	}
@@ -52,10 +55,11 @@ public class PageCrawler {
 	public boolean parseLinks() {
 		try {
 			Elements pageLinks = document.select("a[href]");
-			System.out.println("Found (" + pageLinks.size() + ") links at: " + page.getUrl());
-			for (Element link : pageLinks) {
-				this.links.add(link.absUrl("href"));
+			for (int i = 0; i < Math.min(100, pageLinks.size()); i++) {
+				String link = pageLinks.get(i).absUrl("href");
+				this.links.add(link);
 			}
+			System.out.println("Found (" + links.size() + ") links at: " + page.getUrl());
 			return true;
 		}
 		catch (Exception e) {
@@ -64,13 +68,14 @@ public class PageCrawler {
 		}
 	}
 	
-	public List<String> getLinks() {
+	public Set<String> getLinks() {
 		return links;
 	}
 	
 	public boolean containsWord(String keyWord) {
 		try {
 			String body = document.body().text().toLowerCase();
+			System.out.println(body.length());
 			return body.contains(keyWord.toLowerCase());
 		}
 		catch (Exception e) {

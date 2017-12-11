@@ -1,15 +1,24 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import crawler.Spider;
 import scorers.BFSScorer;
 import scorers.DFSScorer;
+import scorers.KeyWordScorer;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		Spider bfsSpider = new Spider(new BFSScorer());
-	//	bfsSpider.search("http://www.blic.rs/", "crvena zvezda");
+	//	bfsSpider.search("https://en.wikipedia.org/wiki/English_Wikipedia", "crvena zvezda");
 		
 		Spider dfsSpider = new Spider(new DFSScorer());
-		dfsSpider.search("https://www.google.ba/", "crvena zvezda");
+	//	dfsSpider.search("https://www.google.ba/", "crvena zvezda");
+		
+		List<String> keyWords = new ArrayList<>();
+		keyWords.add("partizan");
+		Spider keyWordSpider = new Spider(new KeyWordScorer(keyWords));
+		keyWordSpider.search("https://en.wikipedia.org/wiki/Master_theorem", "partizan");
 	}
 	
 }

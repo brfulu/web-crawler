@@ -16,9 +16,9 @@ public class Main {
 	//	dfsSpider.search("https://www.google.ba/", "crvena zvezda");
 		
 		List<String> keyWords = new ArrayList<>();
-		keyWords.add("partizan");
+		keyWords.add("algorithm");
 		Spider keyWordSpider = new Spider(new KeyWordScorer(keyWords));
-		keyWordSpider.search("https://en.wikipedia.org/wiki/Master_theorem", "partizan");
+		keyWordSpider.search("https://en.wikipedia.org/wiki/Master_theorem", "algorithm");
 	}
 	
 }

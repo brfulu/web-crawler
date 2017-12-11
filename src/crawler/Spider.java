@@ -1,6 +1,5 @@
 package crawler;
 import java.time.Clock;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -31,15 +30,12 @@ public class Spider {
 			if (!pageCrawler.crawl()) {
 				continue;
 			}
-			System.out.println(LocalDateTime.now());
 			if (pageCrawler.containsWord(keyWord)) {
 				System.out.println("**SUCCESS**: " + currentPage.getUrl());
 			}
-			System.out.println(LocalDateTime.now());
 			AddLinks(currentPage, pageCrawler);
 			System.out.println(visitedPages.size());
 		}
-		System.out.println(visitedPages.size());
 	}
 
 	private void AddLinks(Page currentPage, PageCrawler pageCrawler) {
@@ -47,7 +43,6 @@ public class Spider {
 		List<Thread> threads = new ArrayList<>();
 		for (String link : links) {
 			if (!visitedPages.contains(link)) {
-				if (!link.contains("en")) continue;
 				startThread(currentPage, link, threads);
 				if (threads.size() > 100) break;
 			}
@@ -61,7 +56,6 @@ public class Spider {
 			public void run() {
 				synchronized (pagesToVisit) {
 					Page nextPage = new Page(link, currentPage.getDepth() + 1);
-					System.out.println(nextPage.getUrl());
 					nextPage.setScore(scorer.getScore(nextPage));
 					pagesToVisit.add(nextPage);
 				}
@@ -74,7 +68,7 @@ public class Spider {
 	private void waitForThreads(List<Thread> threads) {
 		for (Thread thread : threads) {
 			try {
-				thread.join();
+				thread.join(1000);
 			}
 			catch (Exception e) {
 				System.out.println("error in thread");

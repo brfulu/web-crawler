@@ -33,13 +33,11 @@ public class PageCrawler {
 	
 	public boolean getPage() {
 		try {
-			System.out.println(LocalDateTime.now());
 			document = page.getDocument();
-			System.out.println(LocalDateTime.now());
 			System.out.println();
 			if (document != null) {
 				System.out.println("Visiting web page at: " + page.getUrl());
-			//	System.out.println("Depth = " + page.getDepth());
+				System.out.println("Score = " + page.getScore());
 			}
 			else {
 				System.out.println("Error with page at: " + page.getUrl());
@@ -57,7 +55,9 @@ public class PageCrawler {
 			Elements pageLinks = document.select("a[href]");
 			for (int i = 0; i < Math.min(100, pageLinks.size()); i++) {
 				String link = pageLinks.get(i).absUrl("href");
-				this.links.add(link);
+				if (link.contains("en.") && !link.contains("#") && !link.contains("=edit")){
+					this.links.add(link);
+				}
 			}
 			System.out.println("Found (" + links.size() + ") links at: " + page.getUrl());
 			return true;
@@ -75,7 +75,6 @@ public class PageCrawler {
 	public boolean containsWord(String keyWord) {
 		try {
 			String body = document.body().text().toLowerCase();
-			System.out.println(body.length());
 			return body.contains(keyWord.toLowerCase());
 		}
 		catch (Exception e) {

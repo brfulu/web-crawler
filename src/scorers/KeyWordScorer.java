@@ -24,10 +24,10 @@ public class KeyWordScorer implements Scorer {
 				score += countOccurences(body, key);
 			}
 		}
-		return score;
+		return -score;
 	}
 
 	private int countOccurences(String text, String pattern) {
-		return text.split("\\b" + pattern + "\\b").length - 1;
+		return text.split(pattern.toLowerCase()).length - 1;
 	}
 }

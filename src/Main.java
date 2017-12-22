@@ -20,23 +20,23 @@ public class Main {
 	    });
 		
 		Spider bfsSpider = new Spider(new BFSScorer());
-	//	bfsSpider.search("https://en.wikipedia.org/wiki/English_Wikipedia", "crvena zvezda");
+		bfsSpider.search("https://en.wikipedia.org/wiki/English_Wikipedia", "sport");
 		
-		Spider dfsSpider = new Spider(new DFSScorer());
-	//	dfsSpider.search("http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/", "crvena zvezda");
+	//	Spider dfsSpider = new Spider(new DFSScorer());
+	//	dfsSpider.search("https://en.wikipedia.org/wiki/Serbia", "belgrade");
 		
-		List<String> keyWords = new ArrayList<>();
-		keyWords.add("novak");
-		keyWords.add("djokovic");
-		keyWords.add("tennis");
-		keyWords.add("serbia");
-//		Spider keyWordSpider = new Spider(new KeyWordScorer(keyWords));
-//		keyWordSpider.search("https://en.wikipedia.org/wiki/Serbia", "algorithm");
+	//	List<String> keyWords = new ArrayList<>();
+	//	keyWords.add("kobe");
+	//	keyWords.add("kobe bryant");
+	//	keyWords.add("los angeles");
 
-		Spider tfidfKeyWordSpider = new Spider(new TFIDFKeyWordScorer(keyWords));
-		tfidfKeyWordSpider.search("https://en.wikipedia.org/wiki/Sports", "");
+	//	Spider keyWordSpider = new Spider(new KeyWordScorer(keyWords));
+	//	keyWordSpider.search("https://en.wikipedia.org/wiki/Basketball", "algorithm");
+
+	//	Spider tfidfKeyWordSpider = new Spider(new TFIDFKeyWordScorer(keyWords));
+	//	tfidfKeyWordSpider.search("https://en.wikipedia.org/wiki/Basketball", "");
 		
-		Spider tfidfPageSimilartyScorer = new Spider(new TFIDFPageSimilarityScorer(new Page("https://en.wikipedia.org/wiki/Novak_Djokovic", 0)));
+	//	Spider tfidfPageSimilartyScorer = new Spider(new TFIDFPageSimilarityScorer(new Page("https://en.wikipedia.org/wiki/Novak_Djokovic", 0)));
 	//	tfidfPageSimilartyScorer.search("https://en.wikipedia.org/wiki/Tennis", "");
 	}
 	

@@ -15,7 +15,6 @@ import javax.print.Doc;
 import org.jsoup.nodes.Element;
 
 import crawler.Page;
-import javafx.scene.control.TreeCell;
 
 public class TFIDFPageSimilarityScorer implements Scorer {
 	private List<String> keyWords;

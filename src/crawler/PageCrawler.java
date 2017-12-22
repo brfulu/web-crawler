@@ -73,7 +73,7 @@ public class PageCrawler {
 	}
 	
 	private boolean isValidLink(String link) {
-		return link.contains("en.") && !link.contains("#") && !link.contains("=edit") 
+		return link.contains("en.") && !link.contains("=edit")  && !link.contains("#")
 			&& !link.contains("?") && !link.contains("File:");
 	}
 	

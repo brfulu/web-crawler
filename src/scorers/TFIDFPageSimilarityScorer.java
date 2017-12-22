@@ -89,7 +89,7 @@ public class TFIDFPageSimilarityScorer implements Scorer {
 			if(!hasSpecialChar){
 				keyWords.add(term);
 			}
-			if (keyWords.size() > 10) break;
+			if (keyWords.size() > 13) break;
 		}
 	}
 	

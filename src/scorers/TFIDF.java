@@ -92,7 +92,12 @@ public class TFIDF {
 	}
 	
 	private double cosineSimilarity(List<Double> a, List<Double> b) {
-		return dotProduct(a, b) / (intensity(a) * intensity(b));
+		if (intensity(a) * intensity(b) == 0) {
+			return -1.0;
+		}
+		else {
+			return dotProduct(a, b) / (intensity(a) * intensity(b));
+		}
 	}
 	
 	private double dotProduct(List<Double> a, List<Double> b) {

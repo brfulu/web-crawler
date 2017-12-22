@@ -9,6 +9,7 @@ public class TFIDFKeyWordScorer implements Scorer {
 	
 	public TFIDFKeyWordScorer(List<String> keyWords) {
 		this.keyWords = keyWords;
+		System.out.println("Keywords = " + keyWords);
 		TFIDF.getInstance().setKeyWords(keyWords);
 	}
 	

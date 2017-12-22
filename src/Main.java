@@ -26,17 +26,18 @@ public class Main {
 	//	dfsSpider.search("http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/", "crvena zvezda");
 		
 		List<String> keyWords = new ArrayList<>();
-		keyWords.add("juventus");
-		keyWords.add("italy");
-		keyWords.add("footbal");
-		Spider keyWordSpider = new Spider(new KeyWordScorer(keyWords));
-	//	keyWordSpider.search("https://en.wikipedia.org/wiki/Sport", "algorithm");
+		keyWords.add("novak");
+		keyWords.add("djokovic");
+		keyWords.add("tennis");
+		keyWords.add("serbia");
+//		Spider keyWordSpider = new Spider(new KeyWordScorer(keyWords));
+//		keyWordSpider.search("https://en.wikipedia.org/wiki/Serbia", "algorithm");
 
 		Spider tfidfKeyWordSpider = new Spider(new TFIDFKeyWordScorer(keyWords));
-	//	tfidfKkeyWordSpider.search("https://en.wikipedia.org/wiki/Sport", "");
+		tfidfKeyWordSpider.search("https://en.wikipedia.org/wiki/Sports", "");
 		
 		Spider tfidfPageSimilartyScorer = new Spider(new TFIDFPageSimilarityScorer(new Page("https://en.wikipedia.org/wiki/Novak_Djokovic", 0)));
-		tfidfPageSimilartyScorer.search("https://en.wikipedia.org/wiki/Tennis", "");
+	//	tfidfPageSimilartyScorer.search("https://en.wikipedia.org/wiki/Tennis", "");
 	}
 	
 }

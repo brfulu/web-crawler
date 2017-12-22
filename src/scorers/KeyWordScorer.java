@@ -15,7 +15,7 @@ public class KeyWordScorer implements Scorer {
 		this.keyWords = keyWords;
 	}
 	
-	public int getScore(Page page) {
+	public double getScore(Page page) {
 		int score = 0;
 		Document document = page.getDocument();
 		if (document != null) {

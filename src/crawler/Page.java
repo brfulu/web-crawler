@@ -1,11 +1,14 @@
 package crawler;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.Executors;
 
 import javax.print.attribute.standard.MediaSize.Other;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.UncheckedIOException;
 import org.jsoup.nodes.Document;
 
 public class Page implements Comparable<Page> {
@@ -13,7 +16,7 @@ public class Page implements Comparable<Page> {
 	private int depth;
 	private Document document;
 	private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.112 Safari/535.1";
-	private int score;
+	private double score;
 	
 	public Page(String url, int depth) {
 		super();
@@ -26,13 +29,13 @@ public class Page implements Comparable<Page> {
 		if (document != null) return document;
 		try {
 			Connection connection = Jsoup.connect(getUrl()).userAgent(USER_AGENT);
-			connection.timeout(2 * 1000);
+			connection.timeout(3000);
 			document = connection.get();
 			if (!connection.response().contentType().contains("text/html")) {
 				document = null;
 			}
 		}
-		catch (Exception e) {
+		catch (IOException  e) {
 			document = null;
 		}
 		return document;
@@ -74,14 +77,14 @@ public class Page implements Comparable<Page> {
 
 	@Override
 	public int compareTo(Page other) {
-		return Integer.compare(score, other.getScore());
+		return Double.compare(score, other.getScore());
 	}
 	
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
 	
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 }

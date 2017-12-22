@@ -1,4 +1,5 @@
 package crawler;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -37,7 +38,10 @@ public class PageCrawler {
 			System.out.println();
 			if (document != null) {
 				System.out.println("Visiting web page at: " + page.getUrl());
-				System.out.println("Score = " + page.getScore());
+				if (page.getScore() >= 0.0)
+					System.out.println("Score = " + String.format("%.5f", page.getScore()));
+				else 
+					System.out.println("Score = " + String.format("%.5f", -1 * page.getScore()));
 			}
 			else {
 				System.out.println("Error with page at: " + page.getUrl());
@@ -55,7 +59,7 @@ public class PageCrawler {
 			Elements pageLinks = document.select("a[href]");
 			for (int i = 0; i < Math.min(100, pageLinks.size()); i++) {
 				String link = pageLinks.get(i).absUrl("href");
-				if (link.contains("en.") && !link.contains("#") && !link.contains("=edit")){
+				if (isValidLink(link)){
 					this.links.add(link);
 				}
 			}
@@ -66,6 +70,11 @@ public class PageCrawler {
 			System.out.println("Error while getting links from: " + page.getUrl());
 			return false;
 		}
+	}
+	
+	private boolean isValidLink(String link) {
+		return link.contains("en.") && !link.contains("#") && !link.contains("=edit") 
+			&& !link.contains("?") && !link.contains("File:");
 	}
 	
 	public Set<String> getLinks() {

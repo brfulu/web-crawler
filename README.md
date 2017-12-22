@@ -1,2 +1,2 @@
 # Web-Crawler
-Web crawler as a project for AI course on University.
+Web crawler project for AI course on University.

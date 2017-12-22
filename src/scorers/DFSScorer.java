@@ -4,8 +4,7 @@ import crawler.Page;
 
 public class DFSScorer implements Scorer {
 
-	public int getScore(Page page) {
+	public double getScore(Page page) {
 		return -page.getDepth();
 	}
-	
 }

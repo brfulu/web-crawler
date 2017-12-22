@@ -4,7 +4,7 @@ import crawler.Page;
 
 public class BFSScorer implements Scorer {
 
-	public int getScore(Page page) {
+	public double getScore(Page page) {
 		return page.getDepth();
 	}
 
